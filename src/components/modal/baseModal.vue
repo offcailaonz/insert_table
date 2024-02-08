@@ -3,30 +3,70 @@
     <v-dialog
       v-model="dialog"
       persistent
-      max-width="290"
+      max-width="400"
     >
       <v-card>
         <v-card-title class="text-h5">
-          Use Google's location service?
+          Add Material
         </v-card-title>
-        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
-          >
-            Disagree
-          </v-btn>
-          <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
-          >
-            Agree
-          </v-btn>
-        </v-card-actions>
+        <v-card-text>
+          <form ref="form">
+            <v-row>
+              <v-col cols="4" align="start" class="align-self-center">
+                <div class="black--text" >Material :</div>
+              </v-col>
+              <v-col cols="8" align="end">
+                <v-text-field
+                  :rules="rulesRequired"
+                  v-model="form.material"
+                  label="Material"
+                  required
+                  outlined
+                  dense
+                  hide-details
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4" align="start" class="align-self-center">
+                <div class="black--text" >Product Code :</div>
+              </v-col>
+              <v-col cols="8" align="end">
+                <v-text-field
+                  :rules="rulesRequired"
+                  v-model="form.productCode"
+                  label="Product Code"
+                  required
+                  outlined
+                  dense
+                  hide-details
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4" align="start" class="align-self-center">
+                <div class="black--text" >Description :</div>
+              </v-col>
+              <v-col cols="8" align="end">
+                <v-text-field
+                  v-model="form.description"
+                  label="Description"
+                  outlined
+                  dense
+                  hide-details
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <div class="d-flex justify-space-between mt-4">
+              <v-btn
+                class="mr-4"
+                @click="cancel()"
+                color="error"
+                >
+                cancel
+              </v-btn>
+              <v-btn @click="save" :disabled="!form.material.length && !form.productCode.length" color="primary">
+                ADD
+              </v-btn>
+            </div>
+          </form>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </v-row>
@@ -39,11 +79,35 @@ export default {
   data () {
     return {
       dialog: false,
+      rulesRequired: [
+        v => !!v || 'required',
+        v => /^[a-zA-Z0-9]+$/.test(v) || 'must be in English or a number',
+      ],
+      form: {
+        material: '',
+        productCode: '',
+        description: ''
+      }
     }
   },
   methods: {
     save () {
-      this.$emit('save')
+      console.log('save')
+      this.$emit('add', this.form)
+      this.dialog = false
+      this.form = {
+        material: '',
+        productCode: '',
+        description: ''
+      }
+    },
+    cancel () {
+      this.dialog = false
+      this.form = {
+        material: '',
+        productCode: '',
+        description: ''
+      }
     }
   }
 }

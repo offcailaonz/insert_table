@@ -2,6 +2,7 @@
   <v-row>
     <v-col cols="6" style="display: flex;">
       <v-text-field
+        v-model="valueSearch"
         outlined
         placeholder="Material"
         hide-details
@@ -30,17 +31,26 @@
 
 export default {
   name: 'ActionBar',
+  data () {
+    return {
+      valueSearch: ''
+    }
+  },
   props: {
+  },
+  watch: {
+    valueSearch (newVal) {
+      if (!newVal.length) {
+        this.search()
+      }
+    }
   },
   methods: {
     search() {
-      this.$emit('search')
+      this.$emit('search', this.valueSearch)
     },
     add() {
       this.$emit('add')
-    },
-    insert() {
-      this.$emit('insert')
     }
   }
 }
