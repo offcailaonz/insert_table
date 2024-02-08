@@ -9,7 +9,7 @@
         dense
       ></v-text-field>
       <!-- <v-btn>Search</v-btn> -->
-      <v-btn @click="search" style="margin-left: 8px;">
+      <v-btn @click="search" style="margin-left: 8px;" color="secondary">
         <v-icon left>
           mdi-file-find
         </v-icon>
@@ -17,7 +17,7 @@
       </v-btn>
     </v-col>
     <v-col cols="6" align="end">
-      <v-btn @click="add">
+      <v-btn @click="add" color="primary">
         <v-icon left>
           mdi-plus
         </v-icon>

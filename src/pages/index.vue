@@ -112,7 +112,12 @@ export default {
     },
     mapDataTable() {
       if (this.rawData.length) {
-        this.uniqueLocations = [...new Set(this.rawData.map(item => item.Location).sort())]
+        this.uniqueLocations = [...new Set(this.rawData.map(item => item.Location).sort((a, b) => {
+          return parseInt(a.substr(1) - parseInt(b.substr(1)));
+        }))]
+
+        console.log('this.uniqueLocations', this.uniqueLocations)
+
         const headers = this.uniqueLocations.map((header) => {
           return { text: header, value: header }
         })

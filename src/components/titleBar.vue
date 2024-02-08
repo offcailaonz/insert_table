@@ -7,7 +7,7 @@
         </v-card-title>
       </v-col>
       <v-col cols="6" align="end">
-        <v-btn @click="save">
+        <v-btn @click="save" color="green" class="white--text">
           <v-icon left>
             mdi-content-save-all
           </v-icon>
